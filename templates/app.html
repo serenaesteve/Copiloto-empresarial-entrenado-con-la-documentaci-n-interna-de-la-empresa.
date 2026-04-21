@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CopilotoPRO</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Patrick+Hand&family=Permanent+Marker&display=swap" rel="stylesheet">
+</head>
+<body class="app-body">
+
+<div class="app-grid">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-spirals" id="app-spirals"></div>
+    <div class="sidebar-inner">
+
+      <div class="user-card">
+        <div class="user-avatar" id="app-avatar">{{ user.name[:2].upper() }}</div>
+        <div>
+          <div class="user-name">{{ user.name }}</div>
+          <div class="user-role">{{ user.company or 'Mi Empresa' }}</div>
+        </div>
+        <button class="logout-btn" onclick="doLogout()" title="Cerrar sesión">↩</button>
+      </div>
+
+      <div class="docs-label">
+        📁 Documentos <span class="docs-count" id="docs-count">0</span>
+      </div>
+      <div class="doc-list" id="doc-list"></div>
+
+      <input type="file" id="file-input" accept=".txt,.md" multiple>
+      <button class="upload-btn" onclick="document.getElementById('file-input').click()">
+        + Subir TXT / MD
+      </button>
+
+      <span class="paste-label">✏️ Pegar texto</span>
+      <textarea class="paste-area" id="paste-text" placeholder="Pega aquí la documentación interna..."></textarea>
+      <button class="add-text-btn" onclick="addPastedText()">Añadir texto</button>
+
+      <div class="postit-sidebar">
+        <p>💡 Los documentos se guardan en la base de datos. Estarán disponibles cada vez que inicies sesión.</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-area">
+    <div class="header-card">
+      <div class="sticker-star">⭐</div>
+      <div class="header-row">
+        <div class="bot-avatar">🤖<div class="status-dot"></div></div>
+        <div>
+          <div class="header-title">CopilotoPRO</div>
+          <div class="header-context" id="header-context">Cargando documentos...</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-card">
+      <div class="chat-header">🖊️ Conversación — pregunta sobre tu documentación · Powered by Ollama LLaMA 3</div>
+      <div class="messages-area" id="messages-area">
+        <div class="empty-state" id="empty-state">
+          <div class="big-icon">📂</div>
+          <p>Sube documentación y pregúntame lo que necesites</p>
+          <div class="suggestions">
+            <div class="suggestion-chip" onclick="useSuggestion(this)">¿Cuál es la política de vacaciones?</div>
+            <div class="suggestion-chip" onclick="useSuggestion(this)">Resume el proceso de onboarding</div>
+            <div class="suggestion-chip" onclick="useSuggestion(this)">¿Qué dice el manual de calidad?</div>
+          </div>
+        </div>
+      </div>
+      <div class="input-area">
+        <textarea class="question-input" id="question-input"
+          placeholder="Pregunta sobre tu documentación..."
+          rows="1"
+          onkeydown="handleKey(event)"
+          oninput="autoResize(this)"></textarea>
+        <button class="send-btn" id="send-btn" onclick="sendMessage()">➤</button>
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

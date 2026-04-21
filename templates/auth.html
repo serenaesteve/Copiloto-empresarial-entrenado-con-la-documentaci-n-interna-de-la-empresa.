@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CopilotoPRO — Acceso</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Patrick+Hand&family=Permanent+Marker&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="bg-sticker" style="top:5%;left:5%;--r:-15deg">⭐</div>
+<div class="bg-sticker" style="top:15%;right:8%;--r:20deg">📌</div>
+<div class="bg-sticker" style="bottom:10%;left:10%;--r:10deg">✏️</div>
+<div class="bg-sticker" style="bottom:20%;right:5%;--r:-8deg">📎</div>
+<div class="bg-sticker" style="top:50%;left:2%;--r:5deg">💡</div>
+
+<div class="auth-screen">
+  <div class="notebook">
+    <div class="spirals" id="auth-spirals"></div>
+    <div class="postit-deco">¡Bienvenido! 👋</div>
+    <div class="postit-deco2">Tu copiloto te espera ✨</div>
+
+    <div class="notebook-inner">
+      <div class="auth-logo">
+        <span class="emoji">🤖</span>
+        <h1>CopilotoPRO</h1>
+        <p>Copiloto empresarial inteligente</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" id="tab-login" onclick="switchTab('login')">Entrar</button>
+        <button class="tab" id="tab-register" onclick="switchTab('register')">Registrarse</button>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="form-login">
+        <div class="form">
+          <div class="alert error" id="login-error"></div>
+          <div class="field-group">
+            <label class="field-label">📧 Correo</label>
+            <input type="email" class="field-input" id="login-email" placeholder="tu@empresa.com">
+          </div>
+          <div class="field-group">
+            <label class="field-label">🔒 Contraseña</label>
+            <input type="password" class="field-input" id="login-pass" placeholder="••••••••"
+              onkeydown="if(event.key==='Enter')doLogin()">
+          </div>
+          <button class="submit-btn" onclick="doLogin()">Entrar al cuaderno ✏️</button>
+          <div class="separator"><span>o</span></div>
+          <div class="switch-link">
+            ¿Primera vez aquí? <a onclick="switchTab('register')">Créate una cuenta</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- REGISTRO -->
+      <div id="form-register" style="display:none">
+        <div class="form">
+          <div class="alert error" id="register-error"></div>
+          <div class="alert success" id="register-success"></div>
+          <div class="field-group">
+            <label class="field-label">👤 Nombre completo</label>
+            <input type="text" class="field-input" id="reg-name" placeholder="Ana García">
+          </div>
+          <div class="field-group">
+            <label class="field-label">🏢 Empresa</label>
+            <input type="text" class="field-input" id="reg-company" placeholder="Mi Empresa S.L.">
+          </div>
+          <div class="field-group">
+            <label class="field-label">📧 Correo</label>
+            <input type="email" class="field-input" id="reg-email" placeholder="tu@empresa.com">
+          </div>
+          <div class="field-group">
+            <label class="field-label">🔒 Contraseña</label>
+            <input type="password" class="field-input" id="reg-pass" placeholder="Mínimo 6 caracteres">
+          </div>
+          <div class="field-group">
+            <label class="field-label">🔒 Confirmar contraseña</label>
+            <input type="password" class="field-input" id="reg-pass2" placeholder="Repite la contraseña"
+              onkeydown="if(event.key==='Enter')doRegister()">
+          </div>
+          <label class="check-row">
+            <input type="checkbox" id="accept-terms">
+            <span>Acepto los términos y condiciones de uso</span>
+          </label>
+          <button class="submit-btn" onclick="doRegister()">Crear mi cuenta 🚀</button>
+          <div class="separator"><span>o</span></div>
+          <div class="switch-link">
+            ¿Ya tienes cuenta? <a onclick="switchTab('login')">Inicia sesión</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+</body>
+</html>
